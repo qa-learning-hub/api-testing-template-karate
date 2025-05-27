@@ -14,6 +14,7 @@ Karate is a modern, powerful, and elegant [BDD](https://en.wikipedia.org/wiki/Be
     - [Prerequisites](#prerequisites)
     - [Installing Karate](#installing-karate)
 - [🏃‍♂️ Running the Tests](#-running-the-tests)
+-  [Gatling](#gatling)
 
 ---
 ## 📝 Project Structure
@@ -92,3 +93,21 @@ Run by tag:
 ```bash
 mvn clean test -Dkarate.options="--tags @smoke"
 ``` 
+
+Integrate with IDE:
+
+```bash
+mvn clean test -Dgatling
+```
+
+### Gatling
+Gatling is a powerful tool for load testing and performance testing. To run Gatling simulations, you need to add the Gatling Maven plugin to your `pom.xml`.
+
+Also, you can integrate Gatling with Karate for performance testing.
+
+Run gatling simulation:
+
+```bash
+mvn test -P gatling
+```
+
