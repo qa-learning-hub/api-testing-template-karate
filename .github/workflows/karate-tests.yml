@@ -21,15 +21,19 @@ jobs:
       - name: Build and Run Karate Tests
         run: |
           mvn clean test
+      - name: Debug - List Karate Report Folder
+        run: |
+          ls -alh target/
+          ls -alh target/karate-reports || echo "No reports found"
       - name: Copy Karate Report to deploy folder
         if: always()
         run: |
-          mkdir -p report
-          cp -r target/karate-reports/* report/
+          mkdir -p output
+          cp -r target/karate-reports/. output/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./report
+          publish_dir: ./output
