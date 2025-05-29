@@ -24,7 +24,7 @@ jobs:
       - name: Copy Karate Report to deploy folder
         if: always()
         run: |
-          mkdir -p output
+          mkdir -p report
           cp -r target/karate-reports/* report/
 
       - name: Deploy to GitHub Pages
