@@ -21,7 +21,10 @@ jobs:
       - name: Build and Run Karate Tests
         run: |
           mvn clean test
-          mkdir -p report
+      - name: Copy Karate Report to deploy folder
+        if: always()
+        run: |
+          mkdir -p output
           cp -r target/karate-reports/* report/
 
       - name: Deploy to GitHub Pages
