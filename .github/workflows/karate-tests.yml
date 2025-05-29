@@ -21,11 +21,7 @@ jobs:
       - name: Build and Run Karate Tests
         run: |
           mvn clean test
-      - name: Debug - List Karate Report Folder
-        if: always()
-        run: |
-          ls -alh target/
-          ls -alh target/karate-reports || echo "No reports found"
+
       - name: Copy Karate Report to deploy folder
         if: always()
         run: |
