@@ -1,25 +1,23 @@
-package examples;
+package in.reqres;
 
 import com.intuit.karate.Results;
 import com.intuit.karate.Runner;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-class ExamplesTest {
+class UsersTest {
 
     @Test
     void testParallel() {
-        Results results = Runner.path("classpath:examples")
-                //.outputCucumberJson(true)
+        Results results = Runner.path("classpath:in/reqres")
                 .parallel(5);
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }
 
     @Test
     void testParallelByTags() {
-        Results results = Runner.path("classpath:examples")
+        Results results = Runner.path("classpath:in/reqres")
                 .tags("@smoke")
-                //.outputCucumberJson(true)
                 .parallel(5);
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
     }

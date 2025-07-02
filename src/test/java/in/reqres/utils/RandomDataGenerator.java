@@ -1,4 +1,4 @@
-package examples.utils;
+package in.reqres.utils;
 
 import net.datafaker.Faker;
 

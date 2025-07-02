@@ -8,7 +8,7 @@ function fn() {
   var config = {
     env: env,
     baseUrl: 'https://reqres.in',
-    myVarName: 'someValue'
+    apikey: { 'x-api-key': 'reqres-free-v1' }
   }
   if (env == 'dev') {
     // customize

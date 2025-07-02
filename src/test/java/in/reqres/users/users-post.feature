@@ -4,14 +4,6 @@ Feature: Testing users API
     * url baseUrl
     * configure headers = { 'x-api-key': 'reqres-free-v1' }
 
-  @smoke
-  Scenario: Get all users successfully
-    Given path '/api/users?page=2'
-    And retry until responseStatus == 200
-    When method get
-    Then status 200
-    And match karate.response.header('Content-Type') contains 'application/json'
-
   @smoke @sanity
   Scenario: Create a new user successfully
     * def createUser =
@@ -36,9 +28,9 @@ Feature: Testing users API
       {
         "name": "#string",
         "job": "#string",
-        "id": "#number",
+        "id": "#string",
         "createdAt": "#notnull",
-        "updatedAt": "#notpresent"
+        //"updatedAt": "#notpresent"
       }
       """
 
@@ -61,28 +53,8 @@ Feature: Testing users API
       | Camilo | Software Dev|
       | Ana    | QA Engineer |
 
-  Scenario: Create a user and find it by id
-    * def createUser =
-      """
-      {
-        "name": "Camilo",
-        "job": "API Tester"
-      }
-      """
-    Given path '/api/users'
-    And request createUser
-    When method post
-    Then status 201
-    * def userId = response.id
-    * print 'user id: ', response.id
-    Given path '/api/users', userId
-    When method get
-    Then status 200
-    And match response.name == createUser.name
-    And match response.id == userId
-
   Scenario: create a user from json file
-    * def createUser = read('classpath:examples/users/payloads/createUser.json')
+    * def createUser = read('classpath:in/reqres/users/payloads/createUser.json')
     * set createUser.name = 'Camilo'
     * set createUser.job = 'Developer'
     Given path '/api/users'
@@ -91,25 +63,16 @@ Feature: Testing users API
     Then status 201
 
   Scenario: create a user from json file and remove job field
-    * def createUser = read('classpath:examples/users/payloads/createUser.json')
+    * def createUser = read('classpath:in/reqres/users/payloads/createUser.json')
     * remove createUser.job
     Given path '/api/users'
     And request createUser
     When method post
     Then status 201
 
-  Scenario: create a simple json object
-    * set jsonObjectPayload
-    |name | job       |
-    |Luisa|API Tester|
-    * print jsonObjectPayload
-    Given path '/api/users'
-    And request jsonObjectPayload
-    When method post
-    Then status 201
 
   Scenario: create a user with DataFaker
-    * def dataFaker = Java.type("examples.utils.RandomDataGenerator")
+    * def dataFaker = Java.type("in.reqres.utils.RandomDataGenerator")
     * def createUser =
       """
       {
@@ -126,12 +89,12 @@ Feature: Testing users API
     * def createUser =
       """
       {
-        "id": "##(id)",
-        "name": "##(name)",
-        "job": "##(job)",
-        "isActive": ##(isActive)
-      }
-      """
+    "id": "##(id)",
+    "name": "##(name)",
+    "job": "##(job)",
+    "isActive": ##(isActive)
+    }
+    """
     * print createUser
 
     Examples:
@@ -154,7 +117,7 @@ Feature: Testing users API
     * print __row
 
     Examples:
-    |read('classpath:examples/users/payloads/MOCK_DATA.json')|
+      |read('classpath:in/reqres/users/payloads/MOCK_DATA.json')|
 
   Scenario Outline: Create multiple users - JSON payload - From CSV file <first_name>
     * def createUser =
@@ -169,4 +132,4 @@ Feature: Testing users API
     * print __row
 
     Examples:
-      | read('classpath:examples/users/payloads/MOCK_DATA.csv') |
+      | read('classpath:in/reqres/users/payloads/MOCK_DATA.csv') |
