@@ -1,4 +1,4 @@
-Feature: Testing users API
+Feature: Testing users API - Get requests
 
   Background:
     * url baseUrl
