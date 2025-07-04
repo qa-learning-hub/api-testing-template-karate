@@ -1,6 +1,7 @@
 function fn() {
   var env = karate.env;// get system property 'karate.env'
-  karate.log('karate.env system property was:', env);
+  var publicKey1 = java.lang.System.getenv('publicKey');
+  karate.log('karate.env system property was:', publicKey1);
   if (!env) {
     env = 'dev';
   }
@@ -8,7 +9,8 @@ function fn() {
   var config = {
     env: env,
     baseUrl: 'https://reqres.in',
-    apikey: { 'x-api-key': 'reqres-free-v1' }
+    apikey: { 'x-api-key': 'reqres-free-v1' },
+    publicKey: publicKey1,
   }
   if (env == 'dev') {
     // customize
