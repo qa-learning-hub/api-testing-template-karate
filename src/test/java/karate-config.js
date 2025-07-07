@@ -9,6 +9,7 @@ function fn() {
   var config = {
     env: env,
     baseUrl: 'https://reqres.in',
+    baseUrlStripe: 'https://api.stripe.com/v1',
     apikey: { 'x-api-key': 'reqres-free-v1' },
     publicKey: publicKey1,
   }

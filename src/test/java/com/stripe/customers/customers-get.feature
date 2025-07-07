@@ -1,7 +1,7 @@
 Feature: Test Customers API from Stripe  - get customers
 
   Background:
-    * url 'https://api.stripe.com/v1'
+    * url baseUrlStripe
     * def encode = Java.type("com.stripe.utils.EncoderBase64")
     * header Authorization = 'Basic ' + encode.getEncode(publicKey,'')
 
